@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
-import PostList from './components/PostList.vue'
-import PostForm from './components/PostForm.vue'
+import PostList from './components/blocks/posts/PostList.vue'
+import PostForm from './components/blocks/posts/PostForm.vue'
 import type { PostInterface } from './interfaces/main'
 import axios from 'axios'
 
@@ -9,6 +9,10 @@ const showModal = ref(false)
 const isLoading = ref(false)
 const selectedSort = ref('')
 const searchQuery = ref('')
+
+const limit = 10
+const currentPage = ref(1)
+const totalPageCount = ref(1)
 
 const optionList = [
   { value: 'title', name: 'По названию' },
@@ -28,8 +32,14 @@ function removePost(post: PostInterface) {
 async function fetchPosts() {
   try {
     isLoading.value = true
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts`, {
+      params: {
+        _page: currentPage.value,
+        _limit: limit,
+      },
+    })
     posts.value = response.data
+    totalPageCount.value = Math.ceil(response.headers['x-total-count'] / limit)
   } catch (error) {
     console.log('Ошибка при звгрузке данных')
   } finally {
@@ -38,6 +48,10 @@ async function fetchPosts() {
 }
 
 onMounted(() => {
+  fetchPosts()
+})
+
+watch(currentPage, () => {
   fetchPosts()
 })
 
@@ -75,5 +89,10 @@ const sortedAndSearchedPosts = computed(() => {
     /></ModalMain>
     <PostList v-if="!isLoading" @remove="removePost" :posts="sortedAndSearchedPosts" />
     <p v-else>Загрка данных</p>
+    <PaginationMain
+      :totalPageCount="totalPageCount"
+      :currentPage="currentPage"
+      @updatePage="(val: number) => (currentPage = val)"
+    />
   </div>
 </template>
