@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PostInterface } from '@/interfaces/PostInterface'
+import type { PostInterface } from '@/interfaces/main'
 import PostItem from './PostItem.vue'
 
 defineEmits<{
@@ -20,7 +20,7 @@ defineProps<{
   posts: {
     id: number
     title: string
-    description: string
+    body: string
   }[]
 }>()
 </script>

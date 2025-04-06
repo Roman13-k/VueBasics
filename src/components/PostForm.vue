@@ -9,8 +9,12 @@
 </template>
 
 <script setup lang="ts">
-import type { PostInterface } from '@/interfaces/PostInterface'
+import type { PostInterface } from '@/interfaces/main'
 import { reactive, ref } from 'vue'
+
+defineProps<{
+  showModal: boolean
+}>()
 
 const emit = defineEmits<{
   (e: 'create', post: PostInterface): void

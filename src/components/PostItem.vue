@@ -5,7 +5,7 @@
         Название: <strong>{{ post.title }}</strong>
       </div>
       <div>
-        Описание: <strong>{{ post.description }}</strong>
+        Описание: <strong>{{ post.body }}</strong>
       </div>
     </div>
     <ButtonMain @click="$emit('remove', post)">Удалить</ButtonMain>
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PostInterface } from '@/interfaces/PostInterface'
+import type { PostInterface } from '@/interfaces/main'
 defineProps<{ post: PostInterface }>()
 </script>
 
