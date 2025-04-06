@@ -10,21 +10,19 @@
   </div>
 </template>
 
-<script setup lang="ts">
-defineOptions({
+<script lang="ts">
+import toggleMixin from '@/mixins/toggleMixin'
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'ModalMain',
+  mixins: [toggleMixin],
+
+  // миксина маунтится первее
+  mounted() {
+    console.log('modal mounted')
+  },
 })
-defineProps<{
-  showModal: boolean
-}>()
-
-const emit = defineEmits<{
-  (e: 'close'): void
-}>()
-
-function closeModal() {
-  emit('close')
-}
 </script>
 
 <style scoped></style>

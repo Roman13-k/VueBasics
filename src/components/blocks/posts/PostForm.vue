@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="createPost" class="mb-20 flex flex-col gap-3 items-center">
     <h2 class="text-blue-500">Создание поста</h2>
-    <InputMain v-model="post.title" placeholder="Название" />
+    <InputMain v-focus v-model="post.title" placeholder="Название" />
     <InputMain v-model="post.description" placeholder="Описание" />
     <p class="text-red-400" v-show="!isValid">Форма не должна быть пустой</p>
     <ButtonMain type="submit">Создать</ButtonMain>
@@ -35,7 +35,7 @@ function createPost() {
   emit('create', {
     id: Date.now(),
     title: post.title,
-    description: post.description,
+    body: post.description,
   })
 
   post.title = ''

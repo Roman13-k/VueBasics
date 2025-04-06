@@ -80,7 +80,7 @@ const sortedAndSearchedPosts = computed(() => {
     <div class="flex justify-between items-center">
       <ButtonMain @click="showModal = true">Создать новый пост</ButtonMain>
       <div>
-        <InputMain v-model="searchQuery" />
+        <InputMain v-focus v-model="searchQuery" />
         <SelectMain v-model="selectedSort" :options="optionList" />
       </div>
     </div>
