@@ -9,6 +9,9 @@
         <li>
           <RouterLink to="/posts">Посты</RouterLink>
         </li>
+        <li>
+          <RouterLink to="/store">Vuex</RouterLink>
+        </li>
       </ul>
     </div>
   </header>
